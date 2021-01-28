@@ -2,12 +2,13 @@ package com.gabriel.querocomida.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_user")
 public class User implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -17,6 +18,9 @@ public class User implements Serializable {
 	private String email;
 	private String phone;
 	private String password;
+
+	@OneToMany(mappedBy = "client")
+	private Set<Order> orders = new HashSet<>();
 
 	public User() {
 	}
@@ -63,6 +67,10 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Set<Order> getOrders() {
+		return orders;
 	}
 
 	@Override
