@@ -1,8 +1,10 @@
 package com.gabriel.querocomida.config;
 
+import com.gabriel.querocomida.entities.Category;
 import com.gabriel.querocomida.entities.Order;
 import com.gabriel.querocomida.entities.User;
 import com.gabriel.querocomida.entities.enums.OrderStatus;
+import com.gabriel.querocomida.repositories.CategoryRepository;
 import com.gabriel.querocomida.repositories.OrderRepository;
 import com.gabriel.querocomida.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +25,17 @@ public class TestConfig {
 	@Autowired
 	private OrderRepository orderRepository;
 
+	@Autowired
+	private CategoryRepository categoryRepository;
+
 	@PostConstruct
 	public void createSeed() {
+		Category cat1 = new Category(null, "Electronics");
+		Category cat2 = new Category(null, "Books");
+		Category cat3 = new Category(null, "Computers");
+
+		this.categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+
 		User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
 		User u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
 
