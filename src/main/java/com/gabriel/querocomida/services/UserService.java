@@ -43,4 +43,9 @@ public class UserService {
 		user.setPhone(userDTO.getPhone());
 		user.setPassword(userDTO.getPassword());
 	}
+
+	@Transactional
+	public void delete(Long id) {
+		this.repository.deleteById(id);
+	}
 }
