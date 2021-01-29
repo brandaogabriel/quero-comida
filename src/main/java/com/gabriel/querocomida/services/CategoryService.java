@@ -19,8 +19,8 @@ public class CategoryService {
 
 	@Transactional(readOnly = true)
 	public List<CategoryDTO> findAll() {
-		List<Category> users = this.repository.findAll();
-		return users.stream().map(CategoryDTO::new).collect(Collectors.toList());
+		List<Category> categories = this.repository.findAll();
+		return categories.stream().map(CategoryDTO::new).collect(Collectors.toList());
 	}
 
 	@Transactional(readOnly = true)
