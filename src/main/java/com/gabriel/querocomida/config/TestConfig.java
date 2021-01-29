@@ -1,14 +1,8 @@
 package com.gabriel.querocomida.config;
 
-import com.gabriel.querocomida.entities.Category;
-import com.gabriel.querocomida.entities.Order;
-import com.gabriel.querocomida.entities.Product;
-import com.gabriel.querocomida.entities.User;
+import com.gabriel.querocomida.entities.*;
 import com.gabriel.querocomida.entities.enums.OrderStatus;
-import com.gabriel.querocomida.repositories.CategoryRepository;
-import com.gabriel.querocomida.repositories.OrderRepository;
-import com.gabriel.querocomida.repositories.ProductRepository;
-import com.gabriel.querocomida.repositories.UserRepository;
+import com.gabriel.querocomida.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -32,6 +26,9 @@ public class TestConfig {
 
 	@Autowired
 	private ProductRepository productRepository;
+
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 
 	@PostConstruct
 	public void createSeed() {
@@ -66,5 +63,12 @@ public class TestConfig {
 
 		this.userRepository.saveAll(Arrays.asList(u1, u2));
 		this.orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+
+		this.orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 	}
 }

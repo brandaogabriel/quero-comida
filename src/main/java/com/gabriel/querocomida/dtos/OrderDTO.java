@@ -1,22 +1,26 @@
 package com.gabriel.querocomida.dtos;
 
 import com.gabriel.querocomida.entities.Order;
+import com.gabriel.querocomida.entities.enums.OrderStatus;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrderDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
 	private Instant moment;
-	private Integer orderStatus;
+	private OrderStatus orderStatus;
 	private UserDTO client;
+	private List<OrderItemDTO> items = new ArrayList<>();
 
 	public OrderDTO() {
 	}
 
-	public OrderDTO(Long id, Instant moment, Integer orderStatus, UserDTO client) {
+	public OrderDTO(Long id, Instant moment, OrderStatus orderStatus, UserDTO client) {
 		this.id = id;
 		this.moment = moment;
 		this.orderStatus = orderStatus;
@@ -26,8 +30,9 @@ public class OrderDTO implements Serializable {
 	public OrderDTO(Order entity) {
 		this.id = entity.getId();
 		this.moment = entity.getMoment();
-		this.orderStatus = entity.getOrderStatus().getCode();
+		this.orderStatus = entity.getOrderStatus();
 		this.client = new UserDTO(entity.getClient());
+		entity.getItems().forEach(orderItem -> this.items.add(new OrderItemDTO(orderItem)));
 	}
 
 	public Long getId() {
@@ -46,11 +51,11 @@ public class OrderDTO implements Serializable {
 		this.moment = moment;
 	}
 
-	public Integer getOrderStatus() {
+	public OrderStatus getOrderStatus() {
 		return orderStatus;
 	}
 
-	public void setOrderStatus(Integer orderStatus) {
+	public void setOrderStatus(OrderStatus orderStatus) {
 		this.orderStatus = orderStatus;
 	}
 
@@ -58,4 +63,7 @@ public class OrderDTO implements Serializable {
 		return client;
 	}
 
+	public List<OrderItemDTO> getItems() {
+		return items;
+	}
 }
