@@ -1,5 +1,6 @@
 package com.gabriel.querocomida.resources.exceptions;
 
+import com.gabriel.querocomida.services.exceptions.DatabaseException;
 import com.gabriel.querocomida.services.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,16 @@ public class ResourceExceptionHandler {
 		HttpStatus status = HttpStatus.NOT_FOUND;
 		StandarError standarError = new StandarError(Instant.now(), status.value(), "Resource not " +
 				"found", e.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(status).body(standarError);
+	}
+
+	@ExceptionHandler(DatabaseException.class)
+	public ResponseEntity<StandarError> integrityViolation(DatabaseException e,
+																												 HttpServletRequest request) {
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		StandarError standarError = new StandarError(Instant.now(), status.value(), "Database " +
+				"Exception",
+				e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(standarError);
 	}
 }
