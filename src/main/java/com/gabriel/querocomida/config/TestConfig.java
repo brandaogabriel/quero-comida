@@ -70,5 +70,9 @@ public class TestConfig {
 		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
 
 		this.orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+
+		Payment pay1 = new Payment(null, o1, Instant.parse("2020-06-20T21:00:00Z"));
+		o1.setPayment(pay1);
+		this.orderRepository.save(o1);
 	}
 }
