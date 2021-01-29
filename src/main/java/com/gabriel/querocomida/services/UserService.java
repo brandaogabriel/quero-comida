@@ -28,4 +28,19 @@ public class UserService {
 		Optional<User> obj = this.repository.findById(id);
 		return new UserDTO(obj.get());
 	}
+
+	@Transactional
+	public UserDTO insert(UserDTO userDTO) {
+		User user = new User();
+		copyToDto(user, userDTO);
+		user = this.repository.save(user);
+		return new UserDTO(user);
+	}
+
+	private void copyToDto(User user, UserDTO userDTO) {
+		user.setName(userDTO.getName());
+		user.setEmail(userDTO.getEmail());
+		user.setPhone(userDTO.getPhone());
+		user.setPassword(userDTO.getPassword());
+	}
 }
