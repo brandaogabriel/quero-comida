@@ -49,5 +49,9 @@ public class OrderItemDTO implements Serializable {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+
+	public Double getSubTotal() {
+		return this.price * this.quantity;
+	}
 }
 

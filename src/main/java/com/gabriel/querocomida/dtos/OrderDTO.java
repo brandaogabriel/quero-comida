@@ -1,6 +1,7 @@
 package com.gabriel.querocomida.dtos;
 
 import com.gabriel.querocomida.entities.Order;
+import com.gabriel.querocomida.entities.OrderItem;
 import com.gabriel.querocomida.entities.enums.OrderStatus;
 
 import java.io.Serializable;
@@ -61,6 +62,13 @@ public class OrderDTO implements Serializable {
 
 	public UserDTO getClient() {
 		return client;
+	}
+
+	public Double getTotal() {
+		Double sum = 0.0;
+		for(OrderItemDTO item : this.items)
+			sum += item.getSubTotal();
+		return sum;
 	}
 
 	public List<OrderItemDTO> getItems() {
