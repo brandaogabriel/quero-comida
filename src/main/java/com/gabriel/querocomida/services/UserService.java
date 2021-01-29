@@ -3,6 +3,7 @@ package com.gabriel.querocomida.services;
 import com.gabriel.querocomida.dtos.UserDTO;
 import com.gabriel.querocomida.entities.User;
 import com.gabriel.querocomida.repositories.UserRepository;
+import com.gabriel.querocomida.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +27,8 @@ public class UserService {
 	@Transactional(readOnly = true)
 	public UserDTO findById(Long id) {
 		Optional<User> obj = this.repository.findById(id);
-		return new UserDTO(obj.get());
+		User user = obj.orElseThrow(() -> new ResourceNotFoundException("User not found"));
+		return new UserDTO(user);
 	}
 
 	@Transactional
