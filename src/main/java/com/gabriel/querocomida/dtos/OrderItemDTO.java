@@ -7,34 +7,31 @@ import java.io.Serializable;
 public class OrderItemDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Long orderId;
-	private Long productId;
+	private ProductDTO product;
 	private Integer quantity;
 	private Double price;
 
 	public OrderItemDTO() {
 	}
 
-	public OrderItemDTO(Long orderId, Long productId, Integer quantity, Double price) {
-		this.orderId = orderId;
-		this.productId = productId;
+	public OrderItemDTO(ProductDTO productDTO, Integer quantity, Double price) {
+		this.product = productDTO;
 		this.quantity = quantity;
 		this.price = price;
 	}
 
 	public OrderItemDTO(OrderItem entity) {
-		this.orderId = entity.getOrder().getId();
-		this.productId = entity.getProduct().getId();
+		this.product = new ProductDTO(entity.getProduct());
 		this.quantity = entity.getQuantity();
 		this.price = entity.getPrice();
 	}
 
-	public Long getOrderId() {
-		return orderId;
+	public ProductDTO getProduct() {
+		return product;
 	}
 
-	public Long getProductId() {
-		return productId;
+	public void setProduct(ProductDTO productDTO) {
+		this.product = productDTO;
 	}
 
 	public Integer getQuantity() {
