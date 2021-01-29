@@ -38,25 +38,23 @@ public class UserService {
 	@Transactional
 	public UserDTO insert(UserDTO userDTO) {
 		User user = new User();
-		copyToDto(user, userDTO);
+		copyDtoToEntity(user, userDTO);
+		user.setPassword(userDTO.getPassword());
 		user = this.repository.save(user);
 		return new UserDTO(user);
 	}
 
-	private void copyToDto(User user, UserDTO userDTO) {
+	private void copyDtoToEntity(User user, UserDTO userDTO) {
 		user.setName(userDTO.getName());
 		user.setEmail(userDTO.getEmail());
 		user.setPhone(userDTO.getPhone());
-		user.setPassword(userDTO.getPassword());
 	}
 
 	@Transactional
 	public UserDTO update(Long id, UserDTO userDTO) {
 		try {
 			User user = this.repository.getOne(id);
-			user.setName(userDTO.getName());
-			user.setEmail(userDTO.getEmail());
-			user.setPhone(userDTO.getPhone());
+			copyDtoToEntity(user, userDTO);
 			user = this.repository.save(user);
 			return new UserDTO(user);
 		} catch (EntityNotFoundException e) {
