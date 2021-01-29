@@ -45,6 +45,16 @@ public class UserService {
 	}
 
 	@Transactional
+	public UserDTO update(Long id, UserDTO userDTO) {
+		User user = this.repository.getOne(id);
+		user.setName(userDTO.getName());
+		user.setEmail(userDTO.getEmail());
+		user.setPhone(userDTO.getPhone());
+		user = this.repository.save(user);
+		return new UserDTO(user);
+	}
+
+	@Transactional
 	public void delete(Long id) {
 		this.repository.deleteById(id);
 	}
