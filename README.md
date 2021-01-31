@@ -9,7 +9,7 @@ rest com utilização do ecossistema spring.
 configuração para banco de dados, pois está sendo utilizado o banco de dados em memória (H2).**
 
 **Caso queira utilizar o modo de desenvolvimento, é necessário ter o postgresql instalado e 
-configurado na sua máquina. Troque em `application.properties` `spring.profiles.active=dev` 
+configurado na sua máquina. Troque em `./src/main/resources/application.properties`, `spring.profiles.active=dev` 
 por `spring.profiles.active=test`.**
 
 Execute o comando: `mvn install` para instalar as dependências do maven.
