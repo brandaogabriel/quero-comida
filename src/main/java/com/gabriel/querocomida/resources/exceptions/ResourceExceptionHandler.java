@@ -14,20 +14,17 @@ import java.time.Instant;
 public class ResourceExceptionHandler {
 
 	@ExceptionHandler(ResourceNotFoundException.class)
-	public ResponseEntity<StandarError> entityNotFound(ResourceNotFoundException e,
-																										 HttpServletRequest request) {
+	public ResponseEntity<StandarError> entityNotFound(ResourceNotFoundException e, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.NOT_FOUND;
-		StandarError standarError = new StandarError(Instant.now(), status.value(), "Resource not " +
-				"found", e.getMessage(), request.getRequestURI());
+		StandarError standarError = new StandarError(Instant.now(), status.value(), "Resource not found",
+				e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(standarError);
 	}
 
 	@ExceptionHandler(DatabaseException.class)
-	public ResponseEntity<StandarError> integrityViolation(DatabaseException e,
-																												 HttpServletRequest request) {
+	public ResponseEntity<StandarError> integrityViolation(DatabaseException e, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.BAD_REQUEST;
-		StandarError standarError = new StandarError(Instant.now(), status.value(), "Database " +
-				"Exception",
+		StandarError standarError = new StandarError(Instant.now(), status.value(), "Database Exception",
 				e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(standarError);
 	}
